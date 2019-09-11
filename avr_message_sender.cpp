@@ -15,8 +15,6 @@ void Message::_putchar(char c){
 }
 
 void Message::send(char* buffer, uint16_t amount){
-
 	for(uint16_t i=0; i<amount; i++)
 		usart.Putchar(*buffer++);
-	_putchar(0);
 }
