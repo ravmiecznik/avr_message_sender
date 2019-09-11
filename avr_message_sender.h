@@ -22,10 +22,10 @@ namespace MessageSender {
 	class Message{
 	private:
 		void 	_putchar(char);
-
-	public:
 		Usart&	usart;
 		Tail tail;
+	public:
+
 		Message(Usart& usart): usart(usart) {};
 		void send(char*, uint16_t);
 
