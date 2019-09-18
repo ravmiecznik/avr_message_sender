@@ -11,24 +11,55 @@
 #include <stdint.h>
 #include "../atm128_usart/usart.h"
 
+#define TAIL_START_MARK	'<'
+#define TAIL_END_MARK	'>'
+
+//typedef  int (*putchar_p)(char, FILE*);
+
+int	_putchar_f(char, FILE*);
+typedef int (*putchar_p)(char, FILE*);
 
 namespace MessageSender {
+	enum id{
+		ack_feedback,
+		nak_feedback,
+	};
 
+	struct Tail{
+		uint8_t 	tail_start=	TAIL_START_MARK;	//'>'
+		uint16_t	id=			0;
+		uint16_t	context=	0;
+		uint16_t 	msg_len=	0;
+		uint16_t	crc=		0;
+		uint8_t		tail_end=	TAIL_END_MARK;	//'<'
 
-	class Tail{
-
+		operator uint8_t* (){
+			return &tail_start;
+		}
 	};
 
 	class Message{
 	private:
-		void 	_putchar(char);
-		Usart&	usart;
-		Tail tail;
+		void 			_putchar(char);
+		static uint8_t 	tail_size;
+		Tail 			tail;
+		bool			tail_was_sent = false;
 	public:
 
-		Message(Usart& usart): usart(usart) {};
-		void send(char*, uint16_t);
-
+		Message(uint16_t msg_id=0, uint16_t context=0);
+		~Message();
+		static 	Usart&	usart;
+		void 	send(char*, uint16_t);
+		void 	sends(char*);
+		void	fetch_str(char*);
+		void 	sends_p(const char *);
+		void 	fetch_str_p(const char *);
+		void 	fetch_byte(uint8_t c);
+		void	send_tail();
+		int 	printf_fetch (const char *format, ...);
+		int 	printf (const char *format, ...);
+		int 	printf_p_fetch (const char *format, ...);
+		int 	printf_p(const char *format, ...);
 	};
 
 
