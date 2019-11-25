@@ -25,6 +25,8 @@ namespace tx_id {
 		nak_feedback,
 		dtx,
 		txt,
+		dbg,
+		digidiag_frame,
 	};
 }
 
@@ -54,11 +56,12 @@ private:
 	bool			tail_was_sent = false;
 public:
 
-	TxMessage(uint16_t msg_id, uint16_t context);
+	TxMessage(uint16_t msg_id, uint16_t context=0);
 	TxMessage();
 	~TxMessage();
 	static 	Usart&	usart;
 	void 	send(char*, uint16_t);
+	void 	send(char c);
 	void 	sends(char*);
 	void	fetch_str(char*);
 	void 	sends_p(const char *);

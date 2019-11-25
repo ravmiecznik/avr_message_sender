@@ -64,6 +64,13 @@ void TxMessage::send(char* buffer, uint16_t amount){
 	send_tail();
 }
 
+void TxMessage::send(char c){
+	tail.msg_len++;
+	tail.msg_crc = _crc_xmodem_update(tail.msg_crc, c);
+	usart.Putchar(c);
+	send_tail();
+}
+
 
 void TxMessage::fetch_str(char* buffer){
 	while(*buffer){
