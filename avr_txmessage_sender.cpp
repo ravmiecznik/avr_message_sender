@@ -165,7 +165,7 @@ int TxMessage::printf(const char* format, ...){
 		va_start (arg, format);
 		done = vsprintf(buff, format, arg);
 		va_end (arg);
-		sends(buff);
+		fetch_str(buff);
 		return done;
 	}
 	return 0;
