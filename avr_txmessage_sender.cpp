@@ -9,10 +9,8 @@
 #include "avr_txmessage_sender.h"
 
 #include "../atm128_usart/usart.h"
-#include "../common.h"
 #include <avr/crc16.h>
 #include <string.h>
-
 
 //extern Usart bt_usart;
 
@@ -106,6 +104,16 @@ void TxMessage::fetch_byte(uint8_t c){
 	usart.Putchar(c);
 	tail.msg_len++;
 	tail.msg_crc = _crc_xmodem_update(tail.msg_crc, c);
+}
+
+void TxMessage::fetch_bytes(uint8_t* c, uint16_t size){
+	uint8_t _c;
+	while(size--){
+		_c = *c++;
+		usart.Putchar(_c);
+		tail.msg_len++;
+		tail.msg_crc = _crc_xmodem_update(tail.msg_crc, _c);
+	}
 }
 
 void TxMessage::send_tail(){

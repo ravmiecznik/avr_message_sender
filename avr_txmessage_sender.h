@@ -14,10 +14,13 @@
 #define TAIL_START_MARK	'<'
 #define TAIL_END_MARK	'>'
 
+Usart& get_main_usart();
+
 //typedef  int (*putchar_p)(char, FILE*);
 
 int	_putchar_f(char, FILE*);
 typedef int (*putchar_p)(char, FILE*);
+
 
 namespace tx_id {
 	enum id{
@@ -27,6 +30,8 @@ namespace tx_id {
 		txt,
 		dbg,
 		digidiag_frame,
+		pin_change_pending,
+		banks_info,
 	};
 }
 
@@ -67,6 +72,7 @@ public:
 	void 	sends_p(const char *);
 	void 	fetch_str_p(const char *);
 	void 	fetch_byte(uint8_t c);
+	void 	fetch_bytes(uint8_t* c, uint16_t size);
 	void	send_tail();
 	int 	printf_fetch (const char *format, ...);
 	int 	printf (const char *format, ...);
