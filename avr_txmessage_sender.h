@@ -32,6 +32,7 @@ namespace tx_id {
 		digidiag_frame,
 		pin_change_pending,
 		banks_info,
+		freemem,
 	};
 }
 
