@@ -38,6 +38,12 @@ TxMessage::TxMessage(){
 	//_stdout.put	= &PUTCHAR;
 }
 
+TxMessage::TxMessage(const char* str){
+	tail.id = tx_id::txt;
+	tail.context = 0;
+	printf(str);
+}
+
 TxMessage::~TxMessage(){
 	send_tail();
 }

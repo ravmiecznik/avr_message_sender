@@ -63,6 +63,7 @@ private:
 public:
 
 	TxMessage(uint16_t msg_id, uint16_t context=0);
+	TxMessage(const char*);
 	TxMessage();
 	~TxMessage();
 	static 	Usart&	usart;
