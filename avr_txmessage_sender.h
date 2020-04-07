@@ -33,6 +33,8 @@ namespace tx_id {
 		pin_change_pending,
 		banks_info,
 		freemem,
+		bank_name,
+		bank_in_use,
 	};
 }
 
